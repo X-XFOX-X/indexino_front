@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>نمایشگر آفلاین انیمیشن Lottie</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a2639 0%, #0d1b2a 100%);
+            font-family: 'Segoe UI', 'Tahoma', system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 3rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            padding: 1.8rem;
+            width: 100%;
+            max-width: 750px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #f0f3fa;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            font-size: 1.7rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sub {
+            text-align: center;
+            color: #b9d0f0;
+            font-size: 0.85rem;
+            margin-bottom: 1.8rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 8px;
+        }
+
+        .upload-area {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 2rem;
+            padding: 1rem 1rem 1.3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+        }
+
+        .upload-label {
+            background: #2c3e66;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .upload-label:hover {
+            background: #3e5a85;
+            transform: scale(1.02);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: #cbdffc;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 12px;
+            border-radius: 60px;
+            display: inline-block;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .animation-container {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 2rem;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.2), 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #lottie-box {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            pointer-events: none;
+        }
+
+        .status-msg {
+            text-align: center;
+            font-size: 0.9rem;
+            background: #1e2a3a;
+            padding: 10px;
+            border-radius: 60px;
+            color: #d1e2ff;
+            margin-top: 18px;
+            font-weight: 500;
+            border-left: 4px solid #ffb347;
+        }
+
+        .info-note {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 20px;
+            color: #98b1e6;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: inherit;
+        }
+
+        a {
+            color: #ffd966;
+            text-decoration: none;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>✨ پخش‌کننده آفلاین Lottie ✨</h2>
+    <div style="text-align: center;">
+        <div class="sub">بدون CDN · بدون اینترنت · کاملاً مستقل</div>
+    </div>
+
+    <div class="upload-area">
+        <label class="upload-label" for="lottieFileInput">
+            📂 انتخاب فایل JSON انیمیشن
+        </label>
+        <input type="file" id="lottieFileInput" accept=".json">
+        <div id="fileNameDisplay" class="file-name">هیچ فایلی انتخاب نشده</div>
+    </div>
+
+    <div class="animation-container">
+        <div id="lottie-box"></div>
+    </div>
+
+    <div id="statusMessage" class="status-msg">
+        ⚡ منتظر انتخاب فایل JSON هستیم...
+    </div>
+    <div class="info-note">
+        🔧 نکته: برای کارکرد آفلاین، فایل <strong style="color:#ffb347">lottie.min.js</strong> 
+        باید در کنار همین فایل HTML قرار داشته باشد.<br>
+        📥 دانلود کتابخانه: 
+        <a href="https://github.com/airbnb/lottie-web/blob/master/build/player/lottie.min.js" target="_blank" style="color:#ffd966">
+            دریافت lottie.min.js
+        </a>
+        &nbsp;|&nbsp;
+        انیمیشن شما باید با فرمت استاندارد Lottie JSON باشد.
+    </div>
+</div>
+
+<!-- بارگذاری کتابخانه Lottie از فایل محلی (آفلاین) -->
+<script src="lottie.min.js"></script>
+
+<script>
+    (function() {
+        // عناصر DOM
+        const fileInput = document.getElementById('lottieFileInput');
+        const fileNameSpan = document.getElementById('fileNameDisplay');
+        const lottieContainer = document.getElementById('lottie-box');
+        const statusDiv = document.getElementById('statusMessage');
+
+        let activeAnimation = null;   // نمونه انیمیشن جاری
+
+        // تابع برای پاکسازی انیمیشن قبلی
+        function destroyPreviousAnimation() {
+            if (activeAnimation) {
+                try {
+                    activeAnimation.destroy();
+                } catch(e) { console.warn(e); }
+                activeAnimation = null;
+            }
+            // حذف تمام محتویات داخل کانتینر (برگشت به حالت خالی)
+            while (lottieContainer.firstChild) {
+                lottieContainer.removeChild(lottieContainer.firstChild);
+            }
+        }
+
+        // تابع نمایش پیام وضعیت
+        function setStatus(message, isError = false) {
+            statusDiv.innerHTML = isError ? `⚠️ ${message}` : `✅ ${message}`;
+            statusDiv.style.borderLeftColor = isError ? '#ff6b6b' : '#4caf50';
+            if (isError) {
+                statusDiv.style.background = '#2a1f1f';
+            } else {
+                statusDiv.style.background = '#1e2a3a';
+            }
+        }
+
+        // بررسی در دسترس بودن کتابخانه lottie
+        function isLottieReady() {
+            return typeof lottie !== 'undefined' && lottie && typeof lottie.loadAnimation === 'function';
+        }
+
+        // تابع اصلی برای بارگذاری انیمیشن از آبجکت JSON
+        function loadAnimationFromJSON(animationJsonObject, fileName) {
+            if (!isLottieReady()) {
+                setStatus('خطا: کتابخانه lottie.min.js یافت نشد! لطفاً فایل را در کنار صفحه قرار دهید.', true);
+                return false;
+            }
+
+            destroyPreviousAnimation();
+
+            try {
+                // ایجاد انیمیشن با تنظیمات آفلاین (بدون درخواست خارجی)
+                activeAnimation = lottie.loadAnimation({
+                    container: lottieContainer,     // المان DOM
+                    renderer: 'svg',                // رندر SVG (سبک و شفاف)
+                    loop: true,                     // تکرار خودکار
+                    autoplay: true,                 // پخش خودکار
+                    animationData: animationJsonObject,  // دیتای مستقیم JSON
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid meet',
+                        clearCanvas: true,
+                        progressiveLoad: false,
+                        hideOnTransparent: true
+                    }
+                });
+
+                // رویدادهای موفقیت/خطا
+                activeAnimation.addEventListener('data_ready', () => {
+                    setStatus(`در حال پخش: "${fileName || 'انیمیشن'}" ✨`);
+                });
+                
+                activeAnimation.addEventListener('error', (err) => {
+                    console.error('Lottie error:', err);
+                    setStatus('خطا در رندر انیمیشن — فرمت JSON ممکن است نامعتبر باشد.', true);
+                    destroyPreviousAnimation();
+                });
+
+                return true;
+            } catch (err) {
+                console.error('بارگذاری با خطا مواجه شد:', err);
+                setStatus('خطا در解析 JSON یا ساخت انیمیشن: ' + err.message, true);
+                destroyPreviousAnimation();
+                return false;
+            }
+        }
+
+        // خواندن فایل JSON انتخاب شده توسط کاربر
+        function handleFileSelect(file) {
+            if (!file) {
+                setStatus('فایلی انتخاب نشده است.', false);
+                return;
+            }
+
+            // بررسی پسوند فایل
+            if (!file.name.toLowerCase().endsWith('.json')) {
+                setStatus('لطفاً فایل با فرمت JSON معتبر Lottie انتخاب کنید.', true);
+                fileNameSpan.innerText = file.name + ' (فرمت نامعتبر)';
+                destroyPreviousAnimation();
+                return;
+            }
+
+            fileNameSpan.innerText = file.name;
+            setStatus('در حال خواندن فایل JSON ...', false);
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const jsonContent = evt.target.result;
+                    const animationData = JSON.parse(jsonContent);
+                    
+                    // اعتبارسنجی بسیار ساده برای اطمینان از ساختار Lottie (وجود لایه‌ها یا v)
+                    if (!animationData || ( !animationData.layers && !animationData.assets && !animationData.v )) {
+                        // برخی از فایل‌های ساده ممکن است فقط ساختار اصلی را داشته باشند.
+                        // فقط چک می‌کنیم که شیء خالی نباشد و حتماً ویژگی v یا layers وجود داشته باشد (حداقل یک شاخص Lottie)
+                        if (!animationData.v && !animationData.layers) {
+                            throw new Error('فایل JSON انتخاب شده شبیه به ساختار استاندارد Lottie نیست (نیاز به فیلد "v" یا "layers")');
+                        }
+                    }
+                    
+                    loadAnimationFromJSON(animationData, file.name);
+                } catch (parseError) {
+                    setStatus('فایل JSON معتبر نیست: ' + parseError.message, true);
+                    destroyPreviousAnimation();
+                }
+            };
+            reader.onerror = function() {
+                setStatus('خطا در خواندن فایل — مجدد تلاش کنید.', true);
+                destroyPreviousAnimation();
+            };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        // رویداد تغییر فایل در اینپوت
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFileSelect(file);
+            } else {
+                fileNameSpan.innerText = 'هیچ فایلی انتخاب نشده';
+                destroyPreviousAnimation();
+                setStatus('انتخاب فایل لغو شد.', false);
+            }
+        });
+
+        // بررسی اولیه - در صورت نبود کتابخانه lottie، خطا نشان بده
+        if (!isLottieReady()) {
+            setStatus('⛔ کتابخانه lottie.min.js یافت نشد! فایل را دانلود کرده و در کنار HTML قرار دهید.', true);
+            statusDiv.style.borderLeftColor = '#ff4444';
+        } else {
+            setStatus('کتابخانه Lottie آماده است. لطفاً فایل JSON خود را بارگذاری کنید.', false);
+        }
+
+        // در صورت آماده نبودن کتابخانه، دکمه فایل غیرفعال نمی‌کنیم اما پیام خطا نمایش داده می‌شود
+        // و بعد از انتخاب فایل دوباره چک می‌کنیم.
+    })();
+</script>
+</body>
+</html>
