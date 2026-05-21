@@ -58,12 +58,18 @@
   --border-radius-2: 16px;
 }
 
-.main-header-scroll{
+.main-header-scroll {
   background-color: #ffffffab;
   backdrop-filter: blur(30px);
-  border: var(--color-white-2) , solid, 2px;
+  border-width: 2px;
+  width: 1284px;
+  top: 20px;
 }
 
+.aaaaa{
+  transition: all .1s ease-in-out;
+
+}
 
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

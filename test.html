@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انواع دکمه با هاورهای متفاوت - Tailwind</title>
+      <link href="/src/css/style.css" rel="stylesheet">
+
+    <style>
+        /* افکت ریپل (موج) با CSS خالص - برای دکمه شماره 10 */
+        .ripple-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+        .ripple-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">انواع دکمه با افکت‌های هاور متفاوت</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. دکمه بزرگ شونده (Scale) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">بزرگ شونده</h3>
+            <button class="px-6 py-2 bg-blue-500 text-white rounded-lg transition-transform duration-300 hover:scale-110">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 2. دکمه با تغییر رنگ و سایه -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">تغییر رنگ + سایه</h3>
+            <button class="px-6 py-2 bg-green-500 text-white rounded-lg shadow-md transition-all duration-300 hover:bg-green-700 hover:shadow-xl">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 3. دکمه با حاشیه متحرک (از پایین) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">حاشیه متحرک از پایین</h3>
+            <button class="relative px-6 py-2 bg-transparent text-blue-600 font-semibold after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 4. دکمه شیشه‌ای (Glassmorphism) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">شیشه‌ای (ماته)</h3>
+            <button class="px-6 py-2 bg-white/20 backdrop-blur-md border border-white/30 text-gray-800 rounded-xl shadow-lg transition-all duration-500 hover:bg-white/40 hover:backdrop-blur-lg hover:shadow-2xl">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 5. دکمه با چرخش آیکون (آیکون داخل) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">چرخش آیکون</h3>
+            <button class="group px-6 py-2 bg-purple-500 text-white rounded-lg flex items-center gap-2 mx-auto transition-all duration-300 hover:bg-purple-700">
+                <span>هاور کن</span>
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- 6. دکمه با افکت ضربه (Bounce) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">ضربه نرم (Bounce)</h3>
+            <button class="px-6 py-2 bg-red-500 text-white rounded-lg transition-all duration-200 hover:animate-bounce">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 7. دکمه با افکت انبساط افقی -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">انبساط افقی</h3>
+            <button class="px-4 py-2 bg-indigo-500 text-white rounded-full transition-all duration-300 hover:px-8 hover:bg-indigo-700">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 8. دکمه با افکت درخشش (Glow) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">درخشش (Glow)</h3>
+            <button class="px-6 py-2 bg-yellow-500 text-gray-900 font-bold rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(234,179,8,0.8)] hover:bg-yellow-600">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 9. دکمه با سایه بزرگ شونده -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">سایه بزرگ‌شونده</h3>
+            <button class="px-6 py-2 bg-gray-800 text-white rounded-lg shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 10. دکمه با افکت موج (Ripple) - نیاز به CSS اضافی دارد -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">موج (Ripple)</h3>
+            <button class="ripple-btn relative px-6 py-2 bg-pink-500 text-white rounded-lg overflow-hidden transition-all duration-300 hover:bg-pink-700">
+                هاور کن (موج سفید)
+            </button>
+        </div>
+
+        <!-- 11. دکمه با چرخش کامل (360 درجه) -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">چرخش 360 درجه</h3>
+            <button class="px-6 py-2 bg-teal-500 text-white rounded-lg transition-all duration-500 hover:rotate-180">
+                هاور کن
+            </button>
+        </div>
+
+        <!-- 12. دکمه با تغییر ضخامت فونت و فاصله حروف -->
+        <div class="bg-white rounded-xl shadow-md p-5 text-center">
+            <h3 class="font-bold mb-3">فاصله حروف متغیر</h3>
+            <button class="px-6 py-2 bg-amber-500 text-white rounded-lg transition-all duration-300 hover:tracking-wider hover:font-bold">
+                هاور کن
+            </button>
+        </div>
+
+    </div>
+
+    <!-- توضیحات -->
+    <div class="mt-10 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-gray-700">
+        <p class="font-bold mb-2">📌 نکات مهم:</p>
+        <ul class="list-disc pr-5 space-y-1">
+            <li>از کلاس‌های <code class="bg-gray-200 px-1 rounded">transition-all duration-300</code> برای نرمی حرکت استفاده شده.</li>
+            <li>افکت موج (ریپل) با CSS اضافی پیاده‌سازی شده و در بقیه موارد فقط Tailwind کافی است.</li>
+            <li>می‌توانید مدت زمان (<code>duration-200, 300, 500, 700</code>) و نوع منحنی (<code>ease-out, ease-in-out</code>) را تغییر دهید.</li>
+            <li>برای چرخش از <code>hover:rotate-180</code>، برای مقیاس <code>hover:scale-110</code> و برای حرکت <code>hover:-translate-y-1</code> استفاده شده.</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
